@@ -1,0 +1,99 @@
+{% extends 'dashboard/layout.html' %}
+
+{% block title %}
+Students List
+{% endblock %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Students' List</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example1" class="table table-bordered table-striped">
+                  <thead>
+
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>email</th>
+                    <th>Gender</th>
+                    <th>Hostel</th>
+                    <th>Room</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  
+                    {% for student in students %}
+                    <tr>
+                        
+                          <td>
+                            <a href="#">{{student.id}}
+                            </a>
+                            </td>
+                        <td>
+                          <a href="#">
+                          {{student.full_name}}
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#">
+                          {{student.email}}
+                          </a>
+                        </td>
+
+                        <td>
+                          <a href="#">
+                          {{student.gender}}
+                          </a>
+                        </td>
+
+                        <td>
+                          <a href="#">
+                          {{student.hostel_id}}
+                          </a>
+                        </td>
+                        <td>
+                          <a href="#">
+                          {{student.room_id}}
+                          </a>
+                        </td>
+                        <td>
+                          <a href="{% url 'student_edit' student.id %}"><i class='fa  fa-edit'></i></a> |
+                          <a href="{% url 'student_delete' student.id %}"><i class='fa  fa-trash text-red'></i></a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div>
+      <!-- /.container-fluid -->
+    </section>
+
+{% endblock %}

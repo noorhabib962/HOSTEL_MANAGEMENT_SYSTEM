@@ -1,0 +1,104 @@
+{% extends "dashboard/layout.html" %}
+
+{% block title %}
+Edit Room
+{% endblock %}
+
+{% block content %}
+
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Edit Room</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- SELECT2 EXAMPLE -->
+        <div class="card card-default">
+          <div class="card-header">
+            <h3 class="card-title">Enter Room Info:</h3>
+
+            <div class="card-tools">
+              <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+              </button>
+              <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          </div>
+          <!-- /.card-header -->
+          <div class="card-body">
+            <form method='POST' action='#'>
+              {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Room Number</label>
+                  <input type="text" name='room_number' value='{{room.room_number}}' class='form-control' required='required' placholder='Enter Room Number...'>
+                </div>
+              </div>  
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Capacity</label>
+                  <input type="text" name='capacity'  value='{{room.capacity}}' class='form-control' required='required' placholder='Enter Capacity...'>
+                </div>
+              </div>      
+          </div><!-- /.row -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Rent</label>
+                <input type="text" name='rent'  value='{{room.rent}}' class='form-control' required='required' placholder='Enter Rent...'>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Select Hostel</label>
+                <select class="form-control select2bs4" name='hostel_id' style="width: 100%;">
+              
+                  {% for hostel in hostels %}
+                  {% if hostel.id == room.hostel_id %}
+                  <option selected="selected" value='{{hostel.id}}'>{{hostel.name}}</option>
+                  {% else %}
+                  <option value='{{hostel.id}}'>{{hostel.name}}</option>
+                  {% endif %}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>  
+ 
+        </div><!-- /.row -->
+
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Description</label>
+              <textarea name="description" id="description" rows='2' cols='50' class='form-control'>{{room.description}}</textarea>
+            </div>
+          </div>
+        </div><!-- /.row -->
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label></label>
+            <a href='{% url "room_list" %}' class='btn btn-default'>Cancel</a>
+            <input type='submit' class='btn btn-primary' value='Update'>  
+          </div>
+        </div>      
+    </div><!-- /.row -->
+
+
+    </form>
+        </div> <!-- /.card -->
+    </section> <!-- /.container-fluid -->
+    <!-- /.content -->
+  
+
+  {% endblock %}
